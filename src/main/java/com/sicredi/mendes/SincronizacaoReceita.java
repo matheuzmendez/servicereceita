@@ -48,7 +48,7 @@ public class SincronizacaoReceita {
 				listBanco.add(new Banco(agencia, conta, saldo, status, atualizouConta));
 				linhaCsv = origem.readLine();
 			}
-			
+
 			origem.close();
 			System.out.println("Arquivo Lido!");
 
@@ -59,15 +59,10 @@ public class SincronizacaoReceita {
 				escreveArquivo.newLine();
 
 				for (Banco item : listBanco) {
-					if (item.getAtualizouConta()) {
-						escreveArquivo.write(item.getAgencia() + "," + item.getConta() + "," + item.getStatus() + ","
-								+ "\"" + String.format("%.2f", item.getSaldo()) + "\"" + "," + "VERDADEIRO");
-						escreveArquivo.newLine();
-					} else {
-						escreveArquivo.write(item.getAgencia() + "," + item.getConta() + "," + item.getStatus() + ","
-								+ "\"" + String.format("%.2f", item.getSaldo()) + "\"" + "," + "FALSO");
-						escreveArquivo.newLine();
-					}
+					escreveArquivo.write(item.getAgencia() + "," + item.getConta() + "," + "\""
+							+ String.format("%.2f", item.getSaldo()) + "\"" + "," + item.getStatus() + ","
+							+ ((item.getAtualizouConta()) ? "VERDADEIRO" : "FALSO"));
+					escreveArquivo.newLine();
 				}
 
 				escreveArquivo.close();
